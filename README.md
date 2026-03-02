@@ -1,5 +1,7 @@
 # 🚀 Boti-Extranet Hub | Dashboard de Gestão de Franquias
 
+![Relatório de Testes Playwright](./screenshots/teste_positivo.png)
+
 MVP desenvolvido para demonstrar maturidade técnica e arquitetural, focado em performance, tipagem rigorosa e resiliência para a Extranet do Grupo Boticário.
 
 ## 🏗️ Decisões Arquiteturais (ADRs)
