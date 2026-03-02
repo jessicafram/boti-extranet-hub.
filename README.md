@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+# 🚀 Boti-Extranet Hub | Dashboard de Gestão de Franquias
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MVP desenvolvido para demonstrar maturidade técnica e arquitetural, focado em performance, tipagem rigorosa e resiliência para a Extranet do Grupo Boticário.
 
-Currently, two official plugins are available:
+## 🏗️ Decisões Arquiteturais (ADRs)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ADR 001: Arquitetura de Serviços Desacoplada
+* **Contexto**: Necessidade de isolar a lógica de dados críticos da interface.
+* **Decisão**: Criação de uma camada de `services` com Axios, garantindo que o contrato de dados seja respeitado via Interfaces TypeScript.
 
-## React Compiler
+### ADR 002: Qualidade e Cobertura E2E com Playwright
+* **Contexto**: Garantir que o Dashboard financeiro seja exibido corretamente em todos os navegadores.
+* **Decisão**: Automação de testes de ponta a ponta validando Chromium, Firefox e Webkit.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Stack Tecnológica
+* **React 18 + Vite**
+* **TypeScript** (Modo rigoroso de tipagem)
+* **Material UI v5**
+* **Playwright** (Testing Engine)
 
-## Expanding the ESLint configuration
+## 🧪 Como Validar o Projeto
+1. Instale as dependências: `npm install`
+2. Rode os testes automatizados: `npx playwright test`
+3. Inicie o dashboard: `npm run dev`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧠 Desafios Superados & Aprendizados
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Durante o desenvolvimento desta extranet, foram enfrentados desafios técnicos que exigiram uma postura analítica e resolutiva:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **Gerenciamento de Infraestrutura (OneDrive + Node):** Superação de conflitos de sincronização e latência de arquivos ao manter o projeto em ambiente de nuvem, garantindo a integridade dos `node_modules` e a performance do HMR do Vite.
+* **Resolução de Permissões de Sistema (EPERM):** Diagnóstico e correção de erros de permissão de execução do Windows ao configurar o Playwright, garantindo que o executor de testes tivesse acesso às pastas de diagnósticos do sistema.
+* **Conformidade de Tipagem TypeScript:** Ajuste fino nas configurações de `tsconfig` para suporte ao `verbatimModuleSyntax`, resolvendo avisos de importação de tipos e garantindo um build limpo e seguro.
+* **Depuração de Ciclo de Vida React:** Resolução de conflitos de renderização ("tela branca") através do desacoplamento de lógica de serviços, movendo chamadas de API do `App.tsx` para uma camada dedicada de `services`
